@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 style="text-align: center;">Galeria</h2><br>
+
+<div class="row">
+    {% for img in imagens %}
+    <div class="col-md-3 m-auto">
+        <img src="/static/uploads/{{img.filename}}" class="img-thumbnail">
+    </div>
+    {% endfor %}
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    <div class="alert-alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endwith %}
+
+<div class="container col-6">
+    <div class="card mt-4">
+        <div class="card-body">
+            <form action="{#{url_for('galeria')}#}" method="post" enctype="multipart/form-data">
+                <label for="file">Envie sua imagem:</label>
+                <input class="form-control" name="file" type="file" required><br>
+                <button type="submit" class="btn btn-danger btn-block">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-section">
+        <h3>Categorias</h3>
+        <ul>
+            <li><a href="#">Smartphones</a></li>
+            <li><a href="#">Eletrônicos</a></li>
+            <li><a href="#">Eletrodomésticos</a></li>
+            <li><a href="#">Tablets</a></li>
+            <li><a href="#">Áudio</a></li>
+        </ul>
+    </div>
+
+    <div class="footer-section">
+        <h3>Informações</h3>
+        <ul>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">Informações de entrega</a></li>
+            <li><a href="#">Política de privacidade</a></li>
+            <li><a href="#">Termos e condições</a></li>
+        </ul>
+    </div>
+
+    <div class="footer-section">
+        <h3>Contate-nos</h3>
+        <p>(13) 919281801</p>
+        <p>dudashop@gmail.com</p>
+        <p>Todos os dias da semana, das 18:30 às 23:00</p>
+    </div>
+
+    <div class="footer-section">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Logo" class="footer-logo">
+    </div>
+</footer>
+
+{% endblock content %}
